@@ -7,7 +7,10 @@
           <a [routerLink]="['/login']">Have an account?</a>
         </p>
 
-        <!-- //eerr -->
+        <app-backend-error-messages
+          *ngIf="backendErrors$ | async"
+          [backendErrors]="backendErrors$ | async"
+        ></app-backend-error-messages>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <fieldset>

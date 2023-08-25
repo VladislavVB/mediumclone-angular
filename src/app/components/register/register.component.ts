@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store, select } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { registerAction } from 'src/app/auth/store/actions/register.action'
-import { isSubmittingselector } from 'src/app/auth/store/selectors/selectors'
+import {
+  isSubmittingselector,
+  valudationsErrorsSelector,
+} from 'src/app/auth/store/selectors'
+import { IBackendErrors } from 'src/app/auth/types/backendErrors.interface'
 import {
   IRegisterDataRequest,
   IRegisterRequest,
@@ -15,10 +19,12 @@ import { IAppState } from 'src/app/shared/types/appState.interface'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   isSubmitting$: Observable<boolean>
+  backendErrors$: Observable<IBackendErrors | null>
   constructor(private store: Store<IAppState>) {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingselector))
+    this.backendErrors$ = this.store.pipe(select(valudationsErrorsSelector))
   }
   form = new FormGroup({
     username: new FormControl<string>('', [Validators.required]),
@@ -31,9 +37,5 @@ export class RegisterComponent implements OnInit {
       user: this.form.value as IRegisterDataRequest,
     }
     this.store.dispatch(registerAction({ request }))
-  }
-
-  ngOnInit(): void {
-    console.log(this.form.value)
   }
 }
