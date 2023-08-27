@@ -11,7 +11,7 @@ export class PersisanseService {
   }
   get(key: string): any {
     try {
-      return JSON.parse(localStorage.getItem(key) || '{}')
+      return JSON.parse(localStorage.getItem(key) || 'null')
     } catch (error) {
       console.error('Error getting from LocalStorage', error)
       return null

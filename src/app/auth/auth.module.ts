@@ -13,6 +13,9 @@ import { RegisterEffect } from './store/effects/register.effect'
 import { BackendErrorMessagesModule } from '../shared/modules/backendErrorMessages/backendErrorMessages.module'
 import { PersisanseService } from '../shared/services/persistans.service'
 import { LoginEffect } from './store/effects/login.effect'
+import { GetCurrentUserEffect } from './store/effects/getCurrentUser.effect'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { AuthIntercetor } from '../shared/services/authInterceptor.service'
 
 const routes: Routes = [
   {
@@ -31,11 +34,23 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([RegisterEffect, LoginEffect]),
+    EffectsModule.forFeature([
+      RegisterEffect,
+      LoginEffect,
+      GetCurrentUserEffect,
+    ]),
     EffectsModule.forRoot([]),
     BackendErrorMessagesModule,
   ],
   declarations: [RegisterComponent, LoginComponent],
-  providers: [AuthService, PersisanseService],
+  providers: [
+    AuthService,
+    PersisanseService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthIntercetor,
+      multi: true,
+    },
+  ],
 })
 export class AuthModule {}

@@ -5,9 +5,19 @@ import {
   registerFailureAction,
   registerSuccesAction,
 } from './actions/register.action'
-import { loginAction, loginFailureAction, loginSuccesAction } from './actions/login.action'
+import {
+  loginAction,
+  loginFailureAction,
+  loginSuccesAction,
+} from './actions/login.action'
+import {
+  getCurrentUserAction,
+  getCurrentUserFailureAction,
+  getCurrentUserSuccesAction,
+} from './actions/getCurrentUser'
 
 const initialSate: IAuthState = {
+  isLoading: false,
   isSubmiting: false,
   currentUser: null,
   isLoggendIn: null,
@@ -66,6 +76,32 @@ export const authReducer = createReducer(
       ...state,
       isSubmiting: false,
       validationsErrors: action.errors,
+    })
+  ),
+  //getCurrentUser
+  on(
+    getCurrentUserAction,
+    (state): IAuthState => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
+  on(
+    getCurrentUserSuccesAction,
+    (state, action): IAuthState => ({
+      ...state,
+      isLoading: false,
+      isLoggendIn: true,
+      currentUser: action.currentUser,
+    })
+  ),
+  on(
+    getCurrentUserFailureAction,
+    (state): IAuthState => ({
+      ...state,
+      isLoading: false,
+      isLoggendIn: false,
+      currentUser: null,
     })
   )
 )
