@@ -11,6 +11,8 @@ import { AuthModule } from 'src/app/auth/auth.module'
 import { TopBarModule } from './shared/modules/topBar/topBar.module'
 import { GlobalFeedModule } from './globalFeed/globalFeed.module'
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store'
+import { YourFeedModule } from './yourFeed/yourFeed.module'
+import { TagFeedModule } from './tagFeed/tagFeed.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +32,8 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store'
     }),
     TopBarModule,
     GlobalFeedModule,
+    YourFeedModule,
+    TagFeedModule,
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],

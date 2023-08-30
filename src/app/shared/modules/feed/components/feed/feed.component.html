@@ -22,9 +22,7 @@
     <a class="preview-link" [routerLink]="['/articles', article.slug]">
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>
-      <ul class="tag-list">
-        <li class="tag-default tag-pill tag-outline">implementations</li>
-      </ul>
+      <app-tag-list [tags]="article.tagList"></app-tag-list>
     </a>
   </div>
   <app-pagination

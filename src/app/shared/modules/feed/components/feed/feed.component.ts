@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core'
 import { Store, select } from '@ngrx/store'
 import { getFeedAction } from '../../store/actions/getFeed.actions'
 import { Observable, Subscription } from 'rxjs'
@@ -37,10 +44,11 @@ export class FeedComponent implements OnInit, OnDestroy {
   fetchFeed(): void {
     const offset = this.currentPage * enviroment.limit - enviroment.limit
     const parsedUrl = parseUrl(this.apiUrlProps)
+
     const stringifiedParams = stringify({
       limit: enviroment.limit,
       offset,
-      ...parsedUrl.query,
+      ...parsedUrl['slug'],
     })
     const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
     this.store.dispatch(getFeedAction({ url: apiUrlWithParams }))
@@ -58,6 +66,10 @@ export class FeedComponent implements OnInit, OnDestroy {
         this.fetchFeed()
       }
     )
+
+    this.route.params.subscribe((params: Params) => {
+      if (params['slug']) this.fetchFeed()
+    })
   }
 
   ngOnDestroy(): void {
