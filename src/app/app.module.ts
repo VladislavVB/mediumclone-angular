@@ -15,6 +15,7 @@ import { YourFeedModule } from './yourFeed/yourFeed.module'
 import { TagFeedModule } from './tagFeed/tagFeed.module'
 import { ArticleModule } from './article/article.module'
 import { CreateArticleModule } from './create-article/create-article.module'
+import { EditArticleModule } from './edit-article/edit-article.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,7 @@ import { CreateArticleModule } from './create-article/create-article.module'
     TagFeedModule,
     CreateArticleModule,
     ArticleModule,
+    EditArticleModule,
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
