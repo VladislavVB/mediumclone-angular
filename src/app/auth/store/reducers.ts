@@ -15,6 +15,7 @@ import {
   getCurrentUserFailureAction,
   getCurrentUserSuccesAction,
 } from './actions/getCurrentUser'
+import { updateCurrentUserSuccessAction } from './actions/updateCurrentUser'
 
 const initialSate: IAuthState = {
   isLoading: false,
@@ -102,6 +103,22 @@ export const authReducer = createReducer(
       isLoading: false,
       isLoggendIn: false,
       currentUser: null,
+    })
+  ),
+  //updateUser
+  on(
+    updateCurrentUserSuccessAction,
+    (state, action): IAuthState => ({
+      ...state,
+      currentUser: action.currentUser,
+    })
+  ),
+  //logout
+  on(
+    loginAction,
+    (): IAuthState => ({
+      ...initialSate,
+      isLoggendIn: false
     })
   )
 )

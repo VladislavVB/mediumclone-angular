@@ -4,6 +4,7 @@ import { IPopularTagsState } from '../modules/popularTags/types/popularTagsState
 import { IArticleState } from 'src/app/article/types/articleState.interface'
 import { ICreateArticleState } from 'src/app/create-article/store/types/createArticleState.interface'
 import { IEditArticleState } from 'src/app/edit-article/store/types/editArticleState.interface'
+import { ISettingsState } from 'src/app/settings/store/types/settingsState.interface'
 
 export interface IAppState {
   auth: IAuthState
@@ -12,4 +13,5 @@ export interface IAppState {
   article: IArticleState
   editArticle: IEditArticleState
   createArticle: ICreateArticleState
+  settings: ISettingsState
 }

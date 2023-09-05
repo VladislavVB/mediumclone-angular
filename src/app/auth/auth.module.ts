@@ -16,6 +16,8 @@ import { LoginEffect } from './store/effects/login.effect'
 import { GetCurrentUserEffect } from './store/effects/getCurrentUser.effect'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AuthIntercetor } from '../shared/services/authInterceptor.service'
+import { updateCurrentUserEffect } from './store/effects/updateCurrentUser.effect'
+import { LogoutEffect } from './store/effects/logout.effect'
 
 const routes: Routes = [
   {
@@ -38,6 +40,8 @@ const routes: Routes = [
       RegisterEffect,
       LoginEffect,
       GetCurrentUserEffect,
+      updateCurrentUserEffect,
+      LogoutEffect
     ]),
     EffectsModule.forRoot([]),
     BackendErrorMessagesModule,
