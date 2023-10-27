@@ -14,6 +14,7 @@ import { currentUserSelector } from 'src/app/auth/store/selectors'
 import { ICurrentUser } from 'src/app/shared/types/currentUser.interface'
 import { deliteArticleAction } from '../../store/actions/deleteArticle.action'
 
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -67,6 +68,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     this.fetchData()
   }
+  
 
   ngOnDestroy(): void {
     this.articleSubsciption.unsubscribe()

@@ -12,6 +12,9 @@ import { StoreModule } from '@ngrx/store'
 import { TagListModule } from '../shared/modules/tagList/tag-list.module'
 import { ArticleService } from './services/article.services'
 import { DeleteArticleEffect } from './store/effects/deliteArticle.effect'
+import { FormatedService } from '../shared/services/formated.service'
+import { AddToFollowModule } from '../shared/modules/add-to-follow/add-to-follow.module'
+import { AddToFavoriteModule } from '../shared/modules/add-to-favorite/add-to-favorite.module'
 
 const routes = [
   {
@@ -29,9 +32,11 @@ const routes = [
     RouterModule.forChild(routes),
     ErrorMessageModule,
     LoadingModule,
+    AddToFollowModule,
+    AddToFavoriteModule,
   ],
   declarations: [ArticleComponent],
   exports: [ArticleComponent],
-  providers: [SharedArticleService, ArticleService],
+  providers: [SharedArticleService, ArticleService, FormatedService],
 })
 export class ArticleModule {}

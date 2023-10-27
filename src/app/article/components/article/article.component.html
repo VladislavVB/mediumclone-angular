@@ -2,7 +2,7 @@
   <div *ngIf="article" class="banner">
     <div class="container">
       <h1>{{ article.title }}</h1>
-      <div class="article-meta">
+      <div style="display: flex" class="article-meta">
         <a [routerLink]="['/profiles', article.author.username]">
           <img [src]="article.author.image" />
         </a>
@@ -15,7 +15,7 @@
           </a>
           <span class="date"> {{ article.createdAt }} </span>
         </div>
-        <span *ngIf="isAuthor | async">
+        <span *ngIf="isAuthor | async; else notAuthor">
           <a
             class="btn btn-sm btn-outline-secondary"
             [routerLink]="['/articles', article.slug, 'edit']"
@@ -23,10 +23,27 @@
             <i class="ion-edit"></i>
             Edit Article
           </a>
-          <button (click)="deleteArticle()" class="btn btn-sm btn-outline-danger">
+          <button
+            (click)="deleteArticle()"
+            class="btn btn-sm btn-outline-danger"
+          >
             <i class="ion-trash-a"></i> Delete Article
           </button>
         </span>
+
+        <ng-template #notAuthor>
+          <span style="display: flex">
+            <app-add-to-follow
+              [username]="article.author.username"
+              [isFollow]="article.author.following"
+            />
+            <app-add-to-favorite
+              [isFavotire]="article.favorited"
+              [articleSlug]="article.slug"
+              [favoritesCount]="article.favoritesCount"
+            />
+          </span>
+        </ng-template>
       </div>
     </div>
   </div>
@@ -44,5 +61,51 @@
       </div>
     </div>
     <hr />
+
+    <div class="article-actions">
+      <div style="display: flex; justify-content: center" class="article-meta">
+        <a [routerLink]="['/profiles', article.author.username]">
+          <img [src]="article.author.image" />
+        </a>
+        <div class="info">
+          <a
+            class="author"
+            [routerLink]="['/profiles', article.author.username]"
+          >
+            {{ article.author.username }}
+          </a>
+          <span class="date"> {{ article.createdAt }} </span>
+        </div>
+        <span *ngIf="isAuthor | async; else notAuthor">
+          <a
+            class="btn btn-sm btn-outline-secondary"
+            [routerLink]="['/articles', article.slug, 'edit']"
+          >
+            <i class="ion-edit"></i>
+            Edit Article
+          </a>
+          <button
+            (click)="deleteArticle()"
+            class="btn btn-sm btn-outline-danger"
+          >
+            <i class="ion-trash-a"></i> Delete Article
+          </button>
+        </span>
+
+        <ng-template #notAuthor>
+          <span style="display: flex">
+            <app-add-to-follow
+              [username]="article.author.username"
+              [isFollow]="article.author.following"
+            />
+            <app-add-to-favorite
+              [isFavotire]="article.favorited"
+              [articleSlug]="article.slug"
+              [favoritesCount]="article.favoritesCount"
+            />
+          </span>
+        </ng-template>
+      </div>
+    </div>
   </div>
 </div>
